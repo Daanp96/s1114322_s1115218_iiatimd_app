@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Bread of the Wild</string>
+    <string name="title">Bread of the wild</string>
+
+    <string name="username">Name</string>
+    <string name="password">Password</string>
+    <string name="button">Login</string>
+
 </resources>
