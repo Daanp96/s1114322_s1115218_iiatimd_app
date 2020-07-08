@@ -1,19 +1,19 @@
 package com.example.breadofthewild;
 
-import android.util.Log;
-
 public class Food {
     public String name;
     public String image;
     public String description;
+    public String subclass;
 
     public Food() {
     }
 
-    public Food(String name, String image, String description) {
+    public Food(String name, String image, String description, String subclass) {
         this.name = name;
         this.image = image;
         this.description = description;
+        this.subclass = subclass;
     }
 
     public String getName() {
@@ -27,6 +27,8 @@ public class Food {
     public String getDescription() {
         return description;
     }
+
+    public String getSubclass() { return subclass; }
 
     public void setName(String name) {
         this.name = name;
@@ -42,4 +44,6 @@ public class Food {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public void setSubclass(String subclass) { this.subclass =subclass;}
 }

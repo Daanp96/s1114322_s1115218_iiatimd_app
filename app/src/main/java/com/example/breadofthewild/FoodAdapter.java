@@ -27,6 +27,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         public TextView viewName;
         public ImageView viewImage;
         public TextView viewDescription;
+        public TextView viewSubclass;
 
 
         public FoodViewHolder(@NonNull View itemView) {
@@ -34,6 +35,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             viewName = itemView.findViewById(R.id.main_name);
             viewImage = itemView.findViewById(R.id.main_image);
             viewDescription = itemView.findViewById(R.id.main_description);
+            viewSubclass = itemView.findViewById(R.id.main_subclass);
         }
     }
 
@@ -51,6 +53,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.viewName.setText(food.getName());
         holder.viewDescription.setText(food.getDescription());
         Picasso.get().load(food.getImage()).into(holder.viewImage);
+        holder.viewSubclass.setText(food.getSubclass());
 //        Picasso.get().load("https://dl.airtable.com/JtPShAO4TQS3JtMsg87E_40px-BotW_Tough_Elixir_Icon.png%3Fversion%3D53aabd7829fcba3fc04ea19cd05e31ff").into(holder.viewImage);
     }
 

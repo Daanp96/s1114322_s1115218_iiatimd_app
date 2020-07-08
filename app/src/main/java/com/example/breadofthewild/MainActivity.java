@@ -6,25 +6,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         food.setName(jsonObject.getString("name"));
                         food.setImage(jsonObject.getString("image"));
                         food.setDescription(jsonObject.getString("description"));
+                        food.setSubclass(jsonObject.getString("subclass"));
                         foodList.add(food);
                     } catch (JSONException e) {
                         e.printStackTrace();
