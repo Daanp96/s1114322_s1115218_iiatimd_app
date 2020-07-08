@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(inlog.equals(name) && passGood.equals(password)){
             bundleForSecondScreen.putString("name", name);
-            Intent toSecondScreenIntent = new Intent(this, SecondActivity.class);
+            Intent toSecondScreenIntent = new Intent(this, LoginActivity.class);
             toSecondScreenIntent.putExtras(bundleForSecondScreen);
             startActivity(toSecondScreenIntent);
             Toast.makeText(this, "Welcome!", Toast.LENGTH_SHORT).show();
