@@ -24,7 +24,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 //    private String url = "https://botw-cookbook-api.herokuapp.com/api/food";
-    private String url = "https://botw-cookbook-api.herokuapp.com/api/ingredient";
+    private String url = "https://botw-cookbook.herokuapp.com/api/ingredient";
 
     private RecyclerView mList;
 
