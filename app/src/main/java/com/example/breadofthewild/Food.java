@@ -1,5 +1,7 @@
 package com.example.breadofthewild;
 
+import android.util.Log;
+
 public class Food {
     public String name;
     public String image;
@@ -31,8 +33,11 @@ public class Food {
     }
 
     public void setImage(String image) {
+        image = image.substring(image.indexOf("(")+ 1);
+        image = image.substring(0, image.indexOf(")"));
         this.image = image;
     }
+
 
     public void setDescription(String description) {
         this.description = description;
