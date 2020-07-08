@@ -23,13 +23,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String url = "https://botw-cookbook-api.herokuapp.com/api/food";
+//    private String url = "https://botw-cookbook-api.herokuapp.com/api/food";
+    private String url = "https://botw-cookbook-api.herokuapp.com/api/ingredient";
 
     private RecyclerView mList;
 
     private LinearLayoutManager linearLayoutManager;
     private DividerItemDecoration dividerItemDecoration;
-    private List<Food> foodList;
+//    private List<Food> foodList;
+    private List<Ingredient> ingredientList;
     private RecyclerView.Adapter adapter;
 
     @Override
@@ -38,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mList = findViewById(R.id.main_list);
-        foodList = new ArrayList<>();
-        adapter = new FoodAdapter(getApplicationContext(), foodList);
+        ingredientList = new ArrayList<>();
+        adapter = new IngredientAdapter(getApplicationContext(), ingredientList);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
@@ -62,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
-                        Food food = new Food();
-                        food.setName(jsonObject.getString("name"));
-                        food.setImage(jsonObject.getString("image"));
-                        food.setDescription(jsonObject.getString("description"));
-                        food.setSubclass(jsonObject.getString("subclass"));
-                        foodList.add(food);
+                        Ingredient ingredient = new Ingredient();
+                        ingredient.setName(jsonObject.getString("name"));
+                        ingredient.setImage(jsonObject.getString("image"));
+                        ingredient.setDescription(jsonObject.getString("description"));
+                        ingredient.setSubclass(jsonObject.getString("subclass"));
+                        ingredientList.add(ingredient);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
