@@ -1,6 +1,8 @@
 package com.example.breadofthewild;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,11 +29,23 @@ public class LoginActivity extends AppCompatActivity {
     EditText user;
     EditText pass;
     RequestQueue requestQueue;
+    MediaPlayer mp_right, mp_wrong;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        mp_right = MediaPlayer.create(this, R.raw.access);
+        mp_right.seekTo(0);
+        mp_right.setVolume(0.5f, 0.5f);
+
+        mp_wrong = MediaPlayer.create(this, R.raw.error);
+        mp_wrong.seekTo(0);
+        mp_wrong.setVolume(0.5f, 0.5f);
 
         CookieManager manager = new CookieManager();
         CookieHandler.setDefault(manager);
@@ -49,22 +63,26 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void logScreen(){
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.ProgressDialog);
+        progressDialog.setMessage("loading");
+        progressDialog.show();
+
         user = findViewById(R.id.userInput);
         String email = user.getText().toString();
 
         pass = findViewById(R.id.passInput);
         String password = pass.getText().toString();
-        String url = "https://botw-cookbook-api.herokuapp.com/api/login?email="+email+"&password="+password;
+        String url = "https://botw-cookbook.herokuapp.com/api/login?email="+email+"&password="+password;
         final Intent toDashboardScreenIntent = new Intent(this, DashboardActivity.class);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        mp_right.start();
 //                        getJsonData();
-                        Log.d("RESPONSE", response);
-
-
+//                        Log.d("RESPONSE", response);
                         startActivity(toDashboardScreenIntent);
 
                     }
@@ -73,7 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        progressDialog.dismiss();
+                        mp_wrong.start();
                     }
                 });
         requestQueue.add(stringRequest);
