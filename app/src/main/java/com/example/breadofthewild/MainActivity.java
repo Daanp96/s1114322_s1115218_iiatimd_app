@@ -5,40 +5,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText user;
-    EditText pass;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button toSecondScreen = findViewById(R.id.button);
-        toSecondScreen.setOnClickListener(this);
+        Button toLoginScreen = findViewById(R.id.loginButton);
+        toLoginScreen.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                toLoginActivity();
+            }
+        });
     }
 
-    public void onClick(View v){
-        Bundle bundleForSecondScreen = new Bundle();
-
-        String inlog = "Link";
-        user = findViewById(R.id.userInput);
-        String name = user.getText().toString();
-
-        String passGood = "Ganon?MoreLikeGaynon";
-        pass = findViewById(R.id.passInput);
-        String password = pass.getText().toString();
-
-        if(inlog.equals(name) && passGood.equals(password)){
-            bundleForSecondScreen.putString("name", name);
-            Intent toSecondScreenIntent = new Intent(this, LoginActivity.class);
-            toSecondScreenIntent.putExtras(bundleForSecondScreen);
-            startActivity(toSecondScreenIntent);
-            Toast.makeText(this, "Welcome!", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();
-        }
+    public void toLoginActivity(){
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
     }
 }

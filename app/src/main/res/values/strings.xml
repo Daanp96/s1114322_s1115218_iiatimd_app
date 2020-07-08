@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Bread of the Wild</string>
     <string name="title">Bread of the wild</string>
-
+    <string name="subTitle">A Legend of Zelda cooking guide</string>
+    <string name="toLoginScreen">Start</string>
     <string name="username">Name</string>
     <string name="password">Password</string>
-    <string name="button">Login</string>
+    <string name="loginButton">Login</string>
 
 </resources>
