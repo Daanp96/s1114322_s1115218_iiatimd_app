@@ -19,11 +19,10 @@ import com.android.volley.toolbox.Volley;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
-import java.util.HashMap;
-import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
+    EditText user;
     EditText mail;
     EditText pass;
     RequestQueue requestQueue;
@@ -38,8 +37,8 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.start();
 
-        setContentView(R.layout.activity_login);
-        Button toSecondScreen = findViewById(R.id.loginButton);
+        setContentView(R.layout.activity_register);
+        Button toSecondScreen = findViewById(R.id.registerButton);
         toSecondScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,23 +46,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button toLoginScreen = findViewById(R.id.newUserButton);
+        Button toLoginScreen = findViewById(R.id.signInButton);
         toLoginScreen.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                toRegisterActivity();
+                toLoginActivity();
             }
-        });;
+        });
     }
 
     public void logScreen(){
+        user = findViewById(R.id.userInput);
+        String username = user.getText().toString();
+
         mail = findViewById(R.id.mailInput);
         String email = mail.getText().toString();
 
         pass = findViewById(R.id.passInput);
         String password = pass.getText().toString();
-        String url = "https://botw-cookbook.herokuapp.com/api/login?email="+email+"&password="+password;
+
+        String url = "https://botw-cookbook.herokuapp.com/api/register?name="+username+"&email="+email+"&password="+password;
         final Intent toDashboardScreenIntent = new Intent(this, DashboardActivity.class);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -82,15 +85,15 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
         requestQueue.add(stringRequest);
     }
 
-    public void toRegisterActivity(){
-        Intent registerIntent = new Intent(this, RegisterActivity.class);
-        startActivity(registerIntent);
+    public void toLoginActivity(){
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
     }
 
 }
