@@ -35,7 +35,7 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_list);
 
         mList = findViewById(R.id.main_list);
         foodList = new ArrayList<>();
