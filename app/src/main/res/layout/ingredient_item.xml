@@ -10,7 +10,8 @@
     <ImageView
         android:id="@+id/main_image"
         android:layout_width="40dp"
-        android:layout_height="40dp"/>
+        android:layout_height="40dp"
+        android:contentDescription="@string/item_image" />
 
     <TextView
         android:id="@+id/main_name"
@@ -20,9 +21,11 @@
         android:layout_toEndOf="@id/main_image"
         android:layout_toRightOf="@id/main_image"
         android:paddingBottom="5dp"
-        android:text="Name"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:text="@string/item_name"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:fontFamily="@font/zelda"/>
 
     <TextView
         android:id="@+id/main_subclass"
@@ -32,9 +35,11 @@
         android:layout_toRightOf="@id/main_image"
         android:layout_below="@id/main_name"
         android:paddingBottom="5dp"
-        android:text="Subclass"
+        android:text="@string/item_subclass"
         android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:fontFamily="@font/rokkitt_bold"/>
 
 
     <TextView
@@ -44,6 +49,8 @@
         android:layout_below="@id/main_subclass"
         android:layout_toEndOf="@id/main_image"
         android:layout_toRightOf="@id/main_image"
-        android:text="Description"
-        android:textSize="18sp" />
+        android:text="@string/item_description"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:fontFamily="@font/rokkitt"/>
 </RelativeLayout>
