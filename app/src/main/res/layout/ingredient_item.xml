@@ -7,20 +7,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <ImageView
         android:id="@+id/main_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:padding="2dp"
         android:contentDescription="@string/item_image" />
 
     <TextView
         android:id="@+id/main_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="356dp"
+        android:layout_height="43dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
         android:layout_toEndOf="@id/main_image"
         android:layout_toRightOf="@id/main_image"
         android:paddingTop="5dp"
@@ -31,8 +28,7 @@
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#fff"
-        android:fontFamily="@font/zelda"
-        android:paddingStart="15dp" />
+        android:fontFamily="@font/zelda"/>
 
     <TextView
         android:id="@+id/main_subclass"
@@ -45,53 +41,26 @@
         android:paddingBottom="5dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="@string/item_description"
+        android:text="@string/item_subclass"
         android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="#fff"
-        android:fontFamily="@font/rokkitt"
-        android:paddingStart="15dp" />
+        android:fontFamily="@font/rokkitt_bold"/>
 
-    <TextView
-        android:id="@+id/main_effect"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_toEndOf="@id/main_image"
-        android:layout_toRightOf="@id/main_image"
-        android:layout_below="@id/main_name"
-        android:paddingBottom="5dp"
-        android:text="Effect"
-        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/main_description"
-        android:layout_width="360dp"
+        android:layout_width="356dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/main_effect"
+        android:layout_below="@id/main_subclass"
         android:layout_toEndOf="@id/main_image"
         android:layout_toRightOf="@id/main_image"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="@string/item_subclass"
+        android:text="@string/item_description"
         android:textSize="18sp"
         android:textColor="#fff"
         android:fontFamily="@font/rokkitt"/>
 </RelativeLayout>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
