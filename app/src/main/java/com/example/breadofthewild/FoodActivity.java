@@ -21,9 +21,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class FoodActivity extends AppCompatActivity {
 
-    private String url = "https://botw-cookbook-api.herokuapp.com/api/food";
+    private String url = "https://botw-cookbook.herokuapp.com/api/food";
 
     private RecyclerView mList;
 
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         food.setImage(jsonObject.getString("image"));
                         food.setDescription(jsonObject.getString("description"));
                         food.setSubclass(jsonObject.getString("subclass"));
+                        food.setEffect(jsonObject.getString("effect"));
                         foodList.add(food);
                     } catch (JSONException e) {
                         e.printStackTrace();
