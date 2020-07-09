@@ -37,8 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         mp_right = MediaPlayer.create(this, R.raw.access);
         mp_right.seekTo(0);
         mp_right.setVolume(0.5f, 0.5f);
