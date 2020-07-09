@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
         pass = findViewById(R.id.passInput);
         String password = pass.getText().toString();
-        String url = "https://botw-cookbook-api.herokuapp.com/api/login?email="+email+"&password="+password;
+        String url = "https://botw-cookbook.herokuapp.com/api/login?email="+email+"&password="+password;
         final Intent toDashboardScreenIntent = new Intent(this, DashboardActivity.class);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
