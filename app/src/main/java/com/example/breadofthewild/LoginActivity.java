@@ -84,9 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 //                        getJsonData();
 //                        Log.d("RESPONSE", response);
                         startActivity(toDashboardScreenIntent);
-
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override

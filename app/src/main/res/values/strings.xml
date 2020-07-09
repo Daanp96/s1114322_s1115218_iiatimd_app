@@ -3,8 +3,12 @@
     <string name="title">Bread of the wild</string>
     <string name="subTitle">A Legend of Zelda cooking guide</string>
     <string name="toLoginScreen">Start</string>
+
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="loginButton">Login</string>
 
+    <string name="buttonToFood">All Recipes</string>
+    <string name="buttonToIngredients">All Ingredients</string>
+    <string name="buttonToCookpot">Cookpot</string>
 </resources>
