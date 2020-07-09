@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IngredientsActivity extends AppCompatActivity {
+public class IngredientActivity extends AppCompatActivity {
 
     private String url = "https://botw-cookbook.herokuapp.com/api/ingredient";
 

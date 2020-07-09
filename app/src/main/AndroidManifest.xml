@@ -20,7 +20,7 @@
         <activity android:name=".DashboardActivity"/>
         <activity android:name=".FoodActivity"/>
         <activity android:name=".RegisterActivity"/>
-        <activity android:name=".IngredientsActivity"/>
+        <activity android:name=".IngredientActivity"/>
     </application>
 
 </manifest>

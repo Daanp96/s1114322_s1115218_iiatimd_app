@@ -19,6 +19,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.CookieHandler;
 import java.net.CookieManager;
 
@@ -95,9 +98,22 @@ public class RegisterActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            User user = new User();
+                            user.setToken(jsonObject.getString("access_token"));
+                            String result = user.getToken();
+                            toDashboardScreenIntent.putExtra("User", user);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         progressDialog.dismiss();
                         mp_right.start();
+
                         startActivity(toDashboardScreenIntent);
+
                     }
                 },
                 new Response.ErrorListener() {

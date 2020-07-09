@@ -22,6 +22,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.util.HashMap;
@@ -70,16 +74,17 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         Button toLoginScreen = findViewById(R.id.newUserButton);
-        toLoginScreen.setOnClickListener(new View.OnClickListener(){
+        toLoginScreen.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 toRegisterActivity();
             }
-        });;
+        });
+        ;
     }
 
-    public void logScreen(){
+    public void logScreen() {
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.ProgressDialog);
         progressDialog.setMessage("loading");
         progressDialog.show();
@@ -89,16 +94,28 @@ public class LoginActivity extends AppCompatActivity {
 
         pass = findViewById(R.id.passInput);
         String password = pass.getText().toString();
-        String url = "https://botw-cookbook.herokuapp.com/api/login?email="+email+"&password="+password;
+        String url = "https://botw-cookbook.herokuapp.com/api/login?email=" + email + "&password=" + password;
         final Intent toDashboardScreenIntent = new Intent(this, DashboardActivity.class);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            User user = new User();
+                            user.setToken(jsonObject.getString("access_token"));
+                            toDashboardScreenIntent.putExtra("User", user);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         progressDialog.dismiss();
                         mp_right.start();
+
                         startActivity(toDashboardScreenIntent);
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -111,8 +128,9 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void toRegisterActivity(){
+    public void toRegisterActivity() {
         Intent registerIntent = new Intent(this, RegisterActivity.class);
         startActivity(registerIntent);
     }
+
 }
