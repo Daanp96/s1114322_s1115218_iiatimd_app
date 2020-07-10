@@ -12,7 +12,9 @@
     <string name="signInButton">Sign In</string>
 
     <string name="buttonToFood">All Recipes</string>
+    <string name="overviewRecipes">Recipes</string>
     <string name="buttonToIngredients">All Ingredients</string>
+    <string name="overviewIngredients">Ingredients</string>
     <string name="buttonToCookpot">Cookpot</string>
 
     <string name="item_name">Name</string>
