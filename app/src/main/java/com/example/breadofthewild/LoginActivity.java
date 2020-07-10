@@ -70,9 +70,9 @@ public class LoginActivity extends AppCompatActivity {
         toSecondScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                logScreen();
-                Intent toDashboardScreenIntent = new Intent(LoginActivity.this, DashboardActivity.class);
-                startActivity(toDashboardScreenIntent);
+                logScreen();
+//                Intent toDashboardScreenIntent = new Intent(LoginActivity.this, DashboardActivity.class);
+//                startActivity(toDashboardScreenIntent);
             }
         });
 
