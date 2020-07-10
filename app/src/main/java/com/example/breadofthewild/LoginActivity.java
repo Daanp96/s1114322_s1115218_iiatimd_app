@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -125,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                         mp_wrong.start();
                     }
                 });
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 3, 1.0f));
         requestQueue.add(stringRequest);
     }
 

@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -35,6 +37,7 @@ public class IngredientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getData();
         setContentView(R.layout.activity_list);
 
         mList = findViewById(R.id.main_list);
@@ -48,7 +51,6 @@ public class IngredientActivity extends AppCompatActivity {
         mList.addItemDecoration(dividerItemDecoration);
         mList.setAdapter(adapter);
 
-        getData();
     }
 
     private void getData () {
@@ -84,6 +86,7 @@ public class IngredientActivity extends AppCompatActivity {
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 3, 1.0f));
         requestQueue.add(jsonArrayRequest);
     }
 }
