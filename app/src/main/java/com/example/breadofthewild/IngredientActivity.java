@@ -46,6 +46,7 @@ public class IngredientActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(this.getResources().getDrawable(R.drawable.divider));
         mList.setHasFixedSize(true);
         mList.setLayoutManager(linearLayoutManager);
         mList.addItemDecoration(dividerItemDecoration);
@@ -55,7 +56,7 @@ public class IngredientActivity extends AppCompatActivity {
 
     private void getData () {
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
+        progressDialog.setMessage("Loading Ingredients");
         progressDialog.show();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
