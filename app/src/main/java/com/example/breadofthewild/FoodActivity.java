@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -33,6 +34,7 @@ public class FoodActivity extends AppCompatActivity {
     private DividerItemDecoration dividerItemDecoration;
     private List<Food> foodList;
     private RecyclerView.Adapter adapter;
+    private TextView overviewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class FoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         mList = findViewById(R.id.main_list);
+        overviewTitle = findViewById(R.id.title);
+        overviewTitle.setText("Recipes");
         foodList = new ArrayList<>();
         adapter = new FoodAdapter(getApplicationContext(), foodList);
         linearLayoutManager = new LinearLayoutManager(this);
