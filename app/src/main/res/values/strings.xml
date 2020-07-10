@@ -11,4 +11,12 @@
     <string name="newUserButton">New User</string>
     <string name="signInButton">Sign In</string>
 
+    <string name="buttonToFood">All Recipes</string>
+    <string name="buttonToIngredients">All Ingredients</string>
+    <string name="buttonToCookpot">Cookpot</string>
+
+    <string name="item_name">Name</string>
+    <string name="item_subclass">Subclass</string>
+    <string name="item_description">Description</string>
+    <string name="item_image">Item Image</string>
 </resources>

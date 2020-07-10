@@ -7,10 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@drawable/background</item>
-        <item name="android:textColor">#FFF</item>
+        <item name="android:textColor">#fff</item>
         <item name="colorControlNormal">#80FFFFFF</item>
         <item name="android:editTextColor">#FFF</item>
         <item name="android:textColorHint">#c4c4c4</item>
+    </style>
+
+    <style name="ProgressDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:fontFamily">@font/zelda</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:background">#000</item>
+        <item name="android:textSize">32sp</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 </resources>
