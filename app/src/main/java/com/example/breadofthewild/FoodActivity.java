@@ -53,6 +53,7 @@ public class FoodActivity extends AppCompatActivity {
 
     private void getData () {
         final ProgressDialog progressDialog = new ProgressDialog(this);
+        final AppDatabase db = AppDatabase.getInstance(getApplicationContext());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
@@ -84,6 +85,7 @@ public class FoodActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
