@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         mp = MediaPlayer.create(this, R.raw.start);
         mp.seekTo(0);
         mp.setVolume(0.5f, 0.5f);
-        final Animation flash = AnimationUtils.loadAnimation(this, R.anim.flash);
+        final Animation flash = AnimationUtils.loadAnimation(this, R.anim.rotate);
         toLoginScreen.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         toLoginActivity();
                     }
-                }, 1100);
+                }, 1300);
             }
         });
     }

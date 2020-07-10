@@ -59,7 +59,7 @@ public class IngredientActivity extends AppCompatActivity {
     }
 
     private void getData () {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.ProgressDialog);
         progressDialog.setMessage("Loading Ingredients");
         progressDialog.show();
 
