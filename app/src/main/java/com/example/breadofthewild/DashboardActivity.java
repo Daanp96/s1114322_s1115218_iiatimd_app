@@ -1,10 +1,12 @@
 package com.example.breadofthewild;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,14 +25,23 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class DashboardActivity extends AppCompatActivity {
+
+    MediaPlayer mp;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getUser();
 
+        mp = MediaPlayer.create(this, R.raw.access);
+        mp.seekTo(0);
+        mp.setVolume(0.5f, 0.5f);
+
         setContentView(R.layout.activity_dashboard);
         Button toFoodScreen = findViewById(R.id.toRecipes);
         Button toIngredientsScreen = findViewById(R.id.toIngredients);
+        Button toCookpotScreen = findViewById(R.id.toCookpot);
         toFoodScreen.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -43,6 +54,14 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toIngredientsActivity();
+            }
+        });
+
+        toCookpotScreen.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mp.start();
+                Toast.makeText(DashboardActivity.this, "Oh no!\nIt's raining, the cookpot can't be lit right now", Toast.LENGTH_LONG).show();
             }
         });
     }
