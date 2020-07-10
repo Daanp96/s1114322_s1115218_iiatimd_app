@@ -46,6 +46,7 @@ public class FoodActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(this.getResources().getDrawable(R.drawable.divider));
         mList.setHasFixedSize(true);
         mList.setLayoutManager(linearLayoutManager);
         mList.addItemDecoration(dividerItemDecoration);
@@ -55,8 +56,8 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void getData () {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.ProgressDialog);
+        progressDialog.setMessage("Loading Recipes");
         progressDialog.show();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -88,7 +89,7 @@ public class FoodActivity extends AppCompatActivity {
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 3, 1.0f));
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
         requestQueue.add(jsonArrayRequest);
     }
 }

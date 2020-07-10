@@ -56,7 +56,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.viewDescription.setText(food.getDescription());
         Picasso.get().load(food.getImage()).into(holder.viewImage);
         holder.viewSubclass.setText(food.getSubclass());
-        holder.viewEffect.setText("Effect: " + food.getEffect());
+        holder.viewEffect.setText(food.getEffect());
 //        Picasso.get().load("https://dl.airtable.com/JtPShAO4TQS3JtMsg87E_40px-BotW_Tough_Elixir_Icon.png%3Fversion%3D53aabd7829fcba3fc04ea19cd05e31ff").into(holder.viewImage);
     }
 

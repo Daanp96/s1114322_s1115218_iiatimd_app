@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                         mp_wrong.start();
                     }
                 });
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 3, 1.0f));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
         requestQueue.add(stringRequest);
     }
 

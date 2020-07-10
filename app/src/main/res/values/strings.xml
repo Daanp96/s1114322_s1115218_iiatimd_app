@@ -19,4 +19,5 @@
     <string name="item_subclass">Subclass</string>
     <string name="item_description">Description</string>
     <string name="item_image">Item Image</string>
+    <string name="item_effect">Effect</string>
 </resources>

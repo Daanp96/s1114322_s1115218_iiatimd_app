@@ -34,7 +34,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getUser();
 
-        mp = MediaPlayer.create(this, R.raw.access);
+        mp = MediaPlayer.create(this, R.raw.korok);
         mp.seekTo(0);
         mp.setVolume(0.5f, 0.5f);
 
@@ -117,7 +117,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 3, 1.0f));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
         requestQueue.add(stringRequest);
 
 

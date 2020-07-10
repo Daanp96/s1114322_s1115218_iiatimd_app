@@ -70,7 +70,9 @@ public class LoginActivity extends AppCompatActivity {
         toSecondScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logScreen();
+//                logScreen();
+                Intent toDashboardScreenIntent = new Intent(LoginActivity.this, DashboardActivity.class);
+                startActivity(toDashboardScreenIntent);
             }
         });
 
@@ -126,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                         mp_wrong.start();
                     }
                 });
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 3, 1.0f));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
         requestQueue.add(stringRequest);
     }
 
