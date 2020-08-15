@@ -13,13 +13,17 @@
 
     <string name="buttonToFood">All Recipes</string>
     <string name="overviewRecipes">Recipes</string>
+
     <string name="buttonToIngredients">All Ingredients</string>
     <string name="overviewIngredients">Ingredients</string>
-    <string name="buttonToCookpot">Cookpot</string>
+
+    <string name="buttonToCookbook">My Cookbook</string>
 
     <string name="item_name">Name</string>
     <string name="item_subclass">Subclass</string>
     <string name="item_description">Description</string>
     <string name="item_image">Item Image</string>
     <string name="item_effect">Effect</string>
+
+    <string name="delete_button">Delete Button</string>
 </resources>

@@ -41,7 +41,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         Button toFoodScreen = findViewById(R.id.toRecipes);
         Button toIngredientsScreen = findViewById(R.id.toIngredients);
-        Button toCookpotScreen = findViewById(R.id.toCookpot);
+        Button toCookbookScreen = findViewById(R.id.toCookpot);
         toFoodScreen.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -57,13 +57,20 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        toCookpotScreen.setOnClickListener(new View.OnClickListener(){
+        toCookbookScreen.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                mp.start();
-                Toast.makeText(DashboardActivity.this, "Oh no!\nIt's raining, the cookpot can't be lit right now", Toast.LENGTH_LONG).show();
+//                mp.start();
+//                Toast.makeText(DashboardActivity.this, "Oh no!\nIt's raining, the cookpot can't be lit right now", Toast.LENGTH_LONG).show();
+                toCookbookActivity();
             }
         });
+    }
+
+    public void toCookbookActivity() {
+        Intent cookbookIntent = new Intent(this, CookbookActivity.class);
+        startActivity(cookbookIntent);
+
     }
 
     public void toRecipesActivity(){
