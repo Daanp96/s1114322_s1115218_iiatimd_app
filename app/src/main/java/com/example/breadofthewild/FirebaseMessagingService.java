@@ -17,33 +17,33 @@ import com.google.firebase.messaging.RemoteMessage;
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     @Override
     public void onNewToken(String token){
-        Log.d("token ff testen", token);
+        Log.d("token", token);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMessageReceived(RemoteMessage message){
-        sendNotification(message.getData().get("recept"));
+        sendNotification(message.getData().get("nuts"));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendNotification(String messageBody){
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("recept", messageBody);
+        Log.d("Message", messageBody);
+        intent.putExtra("nuts", messageBody);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = "1";
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
-                .setContentTitle("Recept van de dag")
+                .setContentTitle("Recipe of the day")
                 .setContentText(messageBody)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.logo)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationChannel channel = new NotificationChannel(channelId, "test notificatie", NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationChannel channel = new NotificationChannel(channelId, "Recipe Notification", NotificationManager.IMPORTANCE_DEFAULT);
         notificationManager.createNotificationChannel(channel);
         notificationManager.notify(0, builder.build());
     }
