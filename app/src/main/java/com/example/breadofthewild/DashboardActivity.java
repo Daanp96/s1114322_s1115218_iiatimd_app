@@ -60,16 +60,16 @@ public class DashboardActivity extends AppCompatActivity {
         toCookbookScreen.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                mp.start();
-//                Toast.makeText(DashboardActivity.this, "Oh no!\nIt's raining, the cookpot can't be lit right now", Toast.LENGTH_LONG).show();
-                toCookbookActivity();
+                mp.start();
+                Toast.makeText(DashboardActivity.this, "Oh no!\nIt's raining, the cookpot can't be lit right now", Toast.LENGTH_LONG).show();
+//                toCookbookActivity();
             }
         });
     }
 
     public void toCookbookActivity() {
-        Intent cookbookIntent = new Intent(this, CookbookActivity.class);
-        startActivity(cookbookIntent);
+//        Intent cookbookIntent = new Intent(this, CookbookActivity.class);
+//        startActivity(cookbookIntent);
 
     }
 
