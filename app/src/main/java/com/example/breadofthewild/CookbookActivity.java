@@ -1,4 +1,4 @@
 package com.example.breadofthewild;
 
-public class CookpotActivity {
+public class CookbookActivity {
 }
