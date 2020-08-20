@@ -1,26 +1,30 @@
 package com.example.breadofthewild;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
-    public String username;
-    public String token;
+public class User  {
+    private String username;
+    private String email;
+    private String password;
 
     public User() {
 
     }
 
-    public User(String username, String token) {
+    public User(String username, String email, String password) {
         this.username = username;
-        this.token = token;
+        this.email = email;
+        this.password = password;
 
     }
 
     public String getUsername() { return username; }
 
-    public String getToken() { return  token; }
+    public String getEmail() { return email; }
+
+    public String getPassword() { return password; }
 
     public void setUsername(String name) { this.username = username; }
 
-    public void setToken(String token) { this.token = token; }
+    public void setEmail(String email) { this.email = email; }
+
+    public void setPassword(String password) { this.password = password; }
 }

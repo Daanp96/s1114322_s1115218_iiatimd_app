@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,7 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class IngredientActivity extends AppCompatActivity {
 
@@ -90,7 +93,15 @@ public class IngredientActivity extends AppCompatActivity {
                 Log.e("Volley", error.toString());
                 progressDialog.dismiss();
             }
-        });
+        }) {
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                String token = UserAuth.getInstance(getApplicationContext()).getJwt();
+                Map headers = new HashMap();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
         requestQueue.add(jsonArrayRequest);

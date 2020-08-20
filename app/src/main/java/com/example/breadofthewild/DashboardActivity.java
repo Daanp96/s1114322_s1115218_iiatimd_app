@@ -1,8 +1,11 @@
 package com.example.breadofthewild;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,8 +32,20 @@ import java.util.Map;
 public class DashboardActivity extends AppCompatActivity {
 
     MediaPlayer mp;
+    TextView userView;
+    private final String URL = "http://10.0.2.2:8000/api/user";
+
+    @Override
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        startActivity(mainIntent);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         getUser();
 
@@ -39,6 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
         mp.setVolume(0.5f, 0.5f);
 
         setContentView(R.layout.activity_dashboard);
+
         Button toFoodScreen = findViewById(R.id.toRecipes);
         Button toIngredientsScreen = findViewById(R.id.toIngredients);
         Button toCookbookScreen = findViewById(R.id.toCookpot);
@@ -84,49 +100,53 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void getUser() {
-        String url = "https://botw-cookbook.herokuapp.com/api/user";
 
-        final Intent dashboardIntent = getIntent();
-        final User user = (User) dashboardIntent.getSerializableExtra("User");
+//       String username = UserAuth.getInstance(getApplicationContext()).getUsername().toString();
+//       userView = (TextView) findViewById(R.id.main_user);
+//       userView.setText("Hello" + username + "!");
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-
-                            JSONObject jsonObject = new JSONObject(response);
-                            String username= jsonObject.getString("name");
-                            user.setUsername(username);
-                            TextView userView = findViewById(R.id.main_user);
-                            userView.setText("Hello " + username + "!");
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error!=null) {
-                    error.printStackTrace();
-                }
-            }
-        }){
-            @Override
-            public Map getHeaders() throws AuthFailureError {
-                User user = (User) dashboardIntent.getSerializableExtra("User");
-                String token = user.getToken();
-                Map headers = new HashMap();
-                headers.put("Authorization", "Bearer " + token);
-                return headers;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
-        requestQueue.add(stringRequest);
-
-
+//
+//        final Intent dashboardIntent = getIntent();
+//        final User user = (User) dashboardIntent.getSerializableExtra("User");
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//
+//                            JSONObject jsonObject = new JSONObject(response);
+//                            String username= jsonObject.getString("name");
+//                            user.setUsername(username);
+//                            TextView userView = findViewById(R.id.main_user);
+//                            userView.setText("Hello " + username + "!");
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                if (error!=null) {
+//                    error.printStackTrace();
+//                }
+//            }
+//        }){
+//            @Override
+//            public Map getHeaders() throws AuthFailureError {
+//                User user = (User) dashboardIntent.getSerializableExtra("User");
+////                String token = user.getJW();
+//                Map headers = new HashMap();
+////                headers.put("Authorization", "Bearer " + token);
+//                return headers;
+//            }
+//        };
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
+//        requestQueue.add(stringRequest);
+//
+//
     }
 }
