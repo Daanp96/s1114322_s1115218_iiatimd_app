@@ -10,7 +10,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-@Database(entities = {Food.class}, version=1)
+@Database(entities = {Food.class}, version=16)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract FoodDAO foodDAO();
 
@@ -24,7 +24,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static AppDatabase create(final Context context){
-        return Room.databaseBuilder(context, AppDatabase.class, "Food").fallbackToDestructiveMigration().build();
+        return Room.databaseBuilder(context, AppDatabase.class, "botw-cookbook").fallbackToDestructiveMigration().build();
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.breadofthewild;
 
+import android.util.Log;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,7 +10,7 @@ import androidx.room.PrimaryKey;
 public class Food {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public int uuid;
 
     @ColumnInfo(name = "name")
     public String name;
@@ -27,14 +29,19 @@ public class Food {
 
     public Food(){}
 
-//    public Food(String name, String image, String description, String subclass, String effect) {
-//        this.name = name;
-//        this.image = image;
-//        this.description = description;
-//        this.subclass = subclass;
-//        this.effect = effect;
-//    }
-    public int getId() { return id; }
+    public Food(String name, String image, String description, String subclass, String effect) {
+        this.name = name;
+
+        image = image.substring(image.indexOf("(")+ 1);
+        image = image.substring(0, image.indexOf(")"));
+        this.image = image;
+
+        this.description = description;
+        this.subclass = subclass;
+        this.effect = effect;
+    }
+
+    public int getId() { return uuid; }
 
     public String getName() {
         return name;
@@ -52,6 +59,8 @@ public class Food {
 
     public String getEffect() { return effect; }
 
+
+    // Setters
     public void setName(String name) {
         this.name = name;
     }
@@ -66,7 +75,8 @@ public class Food {
         this.description = description;
     }
 
-    public void setSubclass(String subclass) { this.subclass = subclass;}
+    public void setSubclass(String subclass) { this.subclass =subclass;}
 
-    public void setEffect(String effect) { this.effect = effect;}
+    public void setEffect(String effect){ this.effect = effect; }
+
 }

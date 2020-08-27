@@ -36,8 +36,8 @@
 
     <TextView
         android:id="@+id/main_subclass"
-        android:layout_width="356dp"
-        android:layout_height="43dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:layout_toEndOf="@id/main_image"
         android:layout_toRightOf="@id/main_image"
         android:layout_below="@id/main_name"
@@ -45,24 +45,28 @@
         android:paddingBottom="5dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="@string/item_description"
+        android:text="@string/item_subclass"
         android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="#fff"
         android:fontFamily="@font/rokkitt"
-        android:paddingStart="15dp" />
+        />
 
     <TextView
         android:id="@+id/main_effect"
-        android:layout_width="340dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_toEndOf="@id/main_image"
-        android:layout_toRightOf="@id/main_image"
         android:layout_below="@id/main_name"
+        android:layout_marginStart="41dp"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="1dp"
+        android:layout_toEndOf="@id/main_subclass"
+        android:layout_toRightOf="@id/main_subclass"
+        android:text=""
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingRight="15dp"
         android:paddingBottom="5dp"
-        android:text="Effect"
         android:textSize="15sp" />
 
     <TextView
@@ -74,7 +78,7 @@
         android:layout_toRightOf="@id/main_image"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="@string/item_subclass"
+        android:text="@string/item_description"
         android:textSize="18sp"
         android:textColor="#fff"
         android:fontFamily="@font/rokkitt"/>

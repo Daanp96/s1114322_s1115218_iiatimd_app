@@ -1,22 +1,26 @@
 package com.example.breadofthewild;
 
+import android.util.Log;
+
 import java.util.List;
 
 public class getFoodItem implements Runnable {
     private AppDatabase db;
-    private RunnableListener runnableListener;
+    private FoodListener foodListener;
 
-    public getFoodItem(AppDatabase db, RunnableListener runnableListener) {
+    public getFoodItem(AppDatabase db, FoodListener foodListener) {
         this.db = db;
-        this.runnableListener = runnableListener;
+        this.foodListener = foodListener;
     }
 
     @Override
     public void run() {
-        runnableListener.onResult(db.foodDAO().getAllFood());
+        foodListener.onResult(db.foodDAO().getAllFood());
+//        String name = db.foodDAO().getAllFood().get(0).getName();
+//        Log.d("this be working?", name);
     }
 }
 
-interface RunnableListener {
-    void onResult(List<Food> food);
+interface FoodListener {
+    void onResult(List<Food> foodList);
 }

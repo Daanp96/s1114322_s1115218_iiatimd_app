@@ -1,25 +1,26 @@
 package com.example.breadofthewild;
 
+import android.os.Process;
+import android.util.Log;
+
+import org.json.JSONArray;
+
 import java.util.List;
 
 public class InsertFoodItem implements Runnable {
     AppDatabase db;
-    Food[] food;
+    List<Food> food;
 
-    public InsertFoodItem(AppDatabase db, Food[] food) {
+    public InsertFoodItem(AppDatabase db, List<Food> food) {
         this.db = db;
         this.food = food;
     }
 
     @Override
     public void run() {
-        List<Food> snapshot = db.foodDAO().getAllFood();
-        for (Food foodItem : food) {
-            boolean blockInsert = false;
-            for (Food snapShotVillager : snapshot) {
-                if (snapShotVillager.getId() == foodItem.getId()) blockInsert = true;
-            }
-            if (!blockInsert) db.foodDAO().insertFood(foodItem);
+        for(int i = 0; i < food.size(); i++){
+            db.foodDAO().insertFood(this.food.get(i));
         }
     }
 }
+

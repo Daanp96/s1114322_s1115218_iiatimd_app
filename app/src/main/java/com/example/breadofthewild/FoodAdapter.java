@@ -13,14 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
-    private Context context;
     private List<Food> list;
 
-    public FoodAdapter(Context context, List<Food> list) {
-        this.context = context;
+    public FoodAdapter(List<Food> list) {
         this.list = list;
     }
 
@@ -45,7 +44,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     @NonNull
     @Override
     public FoodAdapter.FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.food_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_item, parent, false);
         FoodViewHolder foodViewHolder = new FoodViewHolder(v);
         return foodViewHolder;
     }
@@ -58,7 +57,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.viewDescription.setText(food.getDescription());
         Picasso.get().load(food.getImage()).into(holder.viewImage);
         holder.viewSubclass.setText(food.getSubclass());
-        holder.viewEffect.setText("Effect: " + food.getEffect());
+        holder.viewEffect.setText(food.getEffect());
 //        Picasso.get().load("https://dl.airtable.com/JtPShAO4TQS3JtMsg87E_40px-BotW_Tough_Elixir_Icon.png%3Fversion%3D53aabd7829fcba3fc04ea19cd05e31ff").into(holder.viewImage);
     }
 
@@ -67,5 +66,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         return list.size();
     }
 
+    public void setFood(List<Food> list){
+        this.list = list;
+    }
 }
 
