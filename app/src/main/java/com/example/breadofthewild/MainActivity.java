@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         mp.setVolume(0.5f, 0.5f);
         final Animation flash = AnimationUtils.loadAnimation(this, R.anim.rotate);
         toLoginScreen.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 mp.start();
