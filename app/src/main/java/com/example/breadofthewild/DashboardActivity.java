@@ -19,9 +19,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,12 +34,9 @@ import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    MediaPlayer mp;
-    TextView userView;
     private final String URL = "http://10.0.2.2:8000/api/user";
 
     @Override
-
     public void onBackPressed() {
         super.onBackPressed();
         Intent mainIntent = new Intent(this, MainActivity.class);
@@ -45,16 +45,11 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        UserAuth.getInstance(this).setPreferences(sp);
         getUser();
-
-        mp = MediaPlayer.create(this, R.raw.korok);
-        mp.seekTo(0);
-        mp.setVolume(0.5f, 0.5f);
-
         setContentView(R.layout.activity_dashboard);
-
         Button toFoodScreen = findViewById(R.id.toRecipes);
         Button toIngredientsScreen = findViewById(R.id.toIngredients);
         Button toCookbookScreen = findViewById(R.id.toCookpot);
@@ -76,7 +71,7 @@ public class DashboardActivity extends AppCompatActivity {
         toCookbookScreen.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                mp.start();
+
 //                Toast.makeText(DashboardActivity.this, "Oh no!\nIt's raining, the cookpot can't be lit right now", Toast.LENGTH_LONG).show();
                 toCookbookActivity();
             }
@@ -101,52 +96,33 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void getUser() {
 
-//       String username = UserAuth.getInstance(getApplicationContext()).getUsername().toString();
-//       userView = (TextView) findViewById(R.id.main_user);
-//       userView.setText("Hello" + username + "!");
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String username = response.getString("name");
+                    TextView userView = findViewById(R.id.main_user);
+                    userView.setText("Hello " + username + "!");
 
-//
-//        final Intent dashboardIntent = getIntent();
-//        final User user = (User) dashboardIntent.getSerializableExtra("User");
-//
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        try {
-//
-//                            JSONObject jsonObject = new JSONObject(response);
-//                            String username= jsonObject.getString("name");
-//                            user.setUsername(username);
-//                            TextView userView = findViewById(R.id.main_user);
-//                            userView.setText("Hello " + username + "!");
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                if (error!=null) {
-//                    error.printStackTrace();
-//                }
-//            }
-//        }){
-//            @Override
-//            public Map getHeaders() throws AuthFailureError {
-//                User user = (User) dashboardIntent.getSerializableExtra("User");
-////                String token = user.getJW();
-//                Map headers = new HashMap();
-////                headers.put("Authorization", "Bearer " + token);
-//                return headers;
-//            }
-//        };
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
-//        requestQueue.add(stringRequest);
-//
-//
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+               Log.e("Volley", error.toString());
+            }
+        }){
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                String token = UserAuth.getInstance(getApplicationContext()).getJwt();
+                Map headers = new HashMap();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(jor);
+
     }
 }

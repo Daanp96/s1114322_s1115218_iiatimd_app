@@ -24,6 +24,5 @@
     <string name="item_description">Description</string>
     <string name="item_image">Item Image</string>
     <string name="item_effect">Effect</string>
-
-    <string name="delete_button">Delete Button</string>
+    <string name="item_button">Add or Delete Button</string>
 </resources>

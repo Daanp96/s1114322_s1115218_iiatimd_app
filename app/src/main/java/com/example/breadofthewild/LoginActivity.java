@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -114,7 +115,6 @@ public class LoginActivity extends AppCompatActivity {
         final Context context = this;
 
         if(user != null) {
-            RequestQueue queue = VolleySingleton.getInstance(this.getApplication()).getRequestQueue();
             JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, URL, user, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -148,6 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                     mp_right.start();
                 }
             });
+            jor.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
             VolleySingleton.getInstance(this).addToRequestQueue(jor);
         }
     }

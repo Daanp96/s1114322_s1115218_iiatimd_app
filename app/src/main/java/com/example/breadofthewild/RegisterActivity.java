@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -124,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity  {
                     mp_wrong.start();
                 }
             });
-
+            jor.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
             VolleySingleton.getInstance(this).addToRequestQueue(jor);
 
         }
