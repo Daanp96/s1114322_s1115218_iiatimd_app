@@ -28,12 +28,7 @@ import java.util.List;
 public class FoodActivity extends AppCompatActivity {
     private FoodViewModel foodViewModel;
 
-//    private String url = "https://botw-cookbook.herokuapp.com/api/food";
-    private String url = "http://10.0.2.2:8000/api/food";
-    private Context context;
-    private RecyclerView mList;
-
-    //    private List<Food> foodList;
+//    private List<Food> foodList;
 //    private RecyclerView.Adapter adapter;
 
     @Override
@@ -41,7 +36,7 @@ public class FoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        mList = findViewById(R.id.main_list);
+        RecyclerView mList = findViewById(R.id.main_list);
 //        foodList = new ArrayList<>();
 //        adapter = new FoodAdapter(foodList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -72,6 +67,7 @@ public class FoodActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
+        String url = "http://10.0.2.2:8000/api/food";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

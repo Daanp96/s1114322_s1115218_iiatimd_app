@@ -1,5 +1,6 @@
 package com.example.breadofthewild;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder> {
-    private Context context;
-    private List<Ingredient> list;
+    private List<Ingredient> list = new ArrayList<>();
 
-    public IngredientAdapter(Context context, List<Ingredient> list) {
-        this.context = context;
-        this.list = list;
-    }
+//    public IngredientAdapter(List<Ingredient> list) {
+//        this.list = list;
+//    }
 
     public static class IngredientViewHolder extends RecyclerView.ViewHolder {
         public TextView viewName;
@@ -42,11 +42,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @NonNull
     @Override
     public IngredientAdapter.IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.ingredient_item, parent, false);
-        IngredientViewHolder ingredientViewHolder = new IngredientViewHolder(v);
-        return ingredientViewHolder;
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_item, parent, false);
+        return new IngredientViewHolder(v);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull IngredientAdapter.IngredientViewHolder holder, int position) {
         Ingredient ingredient = list.get(position);
@@ -60,6 +60,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setIngredient(List<Ingredient> list){
+        this.list = list;
+        notifyDataSetChanged();
     }
 
 }

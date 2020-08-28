@@ -27,14 +27,6 @@ public class Food {
 
     public Food(){}
 
-//    public Food(String name, String image, String description, String subclass, String effect){
-//        this.name = name;
-//        this.image = image;
-//        this.description = description;
-//        this.subclass = subclass;
-//        this.effect = effect;
-//    }
-
     public int getId() { return id; }
 
     public String getName() {

@@ -24,12 +24,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-@Database(entities = {Food.class}, version=1)
+@Database(entities = {Food.class, Ingredient.class}, version=3)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;
 
     public abstract FoodDAO foodDAO();
+    public abstract IngredientDAO ingredientDAO();
 
     public static synchronized AppDatabase getInstance(Context context){
         if(instance == null){
@@ -46,21 +47,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db){
             super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
         }
     };
-
-    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        private FoodDAO foodDAO;
-
-        private PopulateDbAsyncTask(AppDatabase db){
-            foodDAO = db.foodDAO();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-    }
 
 }

@@ -1,6 +1,9 @@
 package com.example.breadofthewild;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,40 +25,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IngredientsActivity extends AppCompatActivity {
+    private IngredientViewModel ingredientViewModel;
 
-    private String url = "https://botw-cookbook.herokuapp.com/api/ingredient";
-
-    private RecyclerView mList;
-
-    private LinearLayoutManager linearLayoutManager;
-    private DividerItemDecoration dividerItemDecoration;
-    private List<Ingredient> ingredientList;
-    private RecyclerView.Adapter adapter;
+//    private List<Ingredient> ingredientList;
+//    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        mList = findViewById(R.id.main_list);
-        ingredientList = new ArrayList<>();
-        adapter = new IngredientAdapter(getApplicationContext(), ingredientList);
-        linearLayoutManager = new LinearLayoutManager(this);
+        RecyclerView mList = findViewById(R.id.main_list);
+//        ingredientList = new ArrayList<>();
+//        adapter = new IngredientAdapter(ingredientList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
         mList.setHasFixedSize(true);
         mList.setLayoutManager(linearLayoutManager);
         mList.addItemDecoration(dividerItemDecoration);
+
+        final IngredientAdapter adapter = new IngredientAdapter();
         mList.setAdapter(adapter);
+
+        ingredientViewModel = ViewModelProviders.of(this).get(IngredientViewModel.class);
+        ingredientViewModel.getAllIngredients().observe(this, new Observer<List<Ingredient>>() {
+            @Override
+            public void onChanged(List<Ingredient> ingredients) {
+                adapter.setIngredient(ingredients);
+            }
+        });
 
         getData();
     }
 
     private void getData () {
         final ProgressDialog progressDialog = new ProgressDialog(this);
+        final IngredientAdapter adapter = new IngredientAdapter();
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
+        String url = "http://10.0.2.2:8000/api/ingredient";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -67,7 +77,7 @@ public class IngredientsActivity extends AppCompatActivity {
                         ingredient.setImage(jsonObject.getString("image"));
                         ingredient.setDescription(jsonObject.getString("description"));
                         ingredient.setSubclass(jsonObject.getString("subclass"));
-                        ingredientList.add(ingredient);
+                        ingredientViewModel.insert(ingredient);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
@@ -83,7 +93,7 @@ public class IngredientsActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
+
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
     }
 }

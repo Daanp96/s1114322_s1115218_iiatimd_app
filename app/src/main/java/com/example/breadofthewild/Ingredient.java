@@ -2,22 +2,35 @@ package com.example.breadofthewild;
 
 import android.util.Log;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "ingredient")
 public class Ingredient {
+
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
+    @ColumnInfo(name = "name")
     public String name;
+
+    @ColumnInfo(name = "image")
     public String image;
+
+    @ColumnInfo(name = "description")
     public String description;
+
+    @ColumnInfo(name = "subclass")
     public String subclass;
 
     public Ingredient(){}
 
-    public Ingredient(String name, String image, String description, String subclass){
-        this.name = name;
-        this.image = image;
-        this.description = description;
-        this.subclass = subclass;
+    // Getters
+    public int getId() {
+        return id;
     }
 
-    // Getters
     public String getName() { return name; }
 
     public String getImage() { return image; }
@@ -27,6 +40,10 @@ public class Ingredient {
     public String getSubclass() { return subclass; }
 
     // Setters
+    public void setId(int id){
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
