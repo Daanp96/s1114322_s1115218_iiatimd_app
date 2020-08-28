@@ -8,6 +8,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +34,7 @@ import java.util.Map;
 public class CookbookActivity extends AppCompatActivity implements FoodAdapter.ItemClickListener {
     private String URL = "http://10.0.2.2:8000/api/favorite";
     private String REMOVE_URL = "http://10.0.2.2:8000/api/removefavorite";
-
+    private FoodViewModel foodViewModel;
     private RecyclerView mList;
     private MediaPlayer mp;
     private LinearLayoutManager linearLayoutManager;
@@ -55,8 +57,6 @@ public class CookbookActivity extends AppCompatActivity implements FoodAdapter.I
         mList = findViewById(R.id.main_list);
         overviewTitle = findViewById(R.id.title);
         overviewTitle.setText("My Cookbook");
-        foodList = new ArrayList<>();
-        adapter = new FoodAdapter(getApplicationContext(), foodList, "CookBook");
         ((FoodAdapter) adapter).addClickListener(this);
 
         linearLayoutManager = new LinearLayoutManager(this);
@@ -68,6 +68,16 @@ public class CookbookActivity extends AppCompatActivity implements FoodAdapter.I
         mList.setLayoutManager(linearLayoutManager);
         mList.addItemDecoration(dividerItemDecoration);
         mList.setAdapter(adapter);
+
+        final FoodAdapter adapter = new FoodAdapter();
+
+        foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+        foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
+            @Override
+            public void onChanged(List<Food> foodList) {
+                adapter.setFood(foodList, "Cookbook");
+            }
+        });
     }
 
     private void getData() {
