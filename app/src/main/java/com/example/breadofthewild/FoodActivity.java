@@ -1,12 +1,16 @@
 package com.example.breadofthewild;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.media.MediaPlayer;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -32,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FoodActivity extends AppCompatActivity implements FoodAdapter.ItemClickListener{
-
+    private FoodViewModel foodViewModel;
     private String URL = "http://10.0.2.2:8000/api/food";
     private String ADD_URL = "http://10.0.2.2:8000/api/addfavorite";
 
@@ -57,8 +61,8 @@ public class FoodActivity extends AppCompatActivity implements FoodAdapter.ItemC
         mList = findViewById(R.id.main_list);
         overviewTitle = findViewById(R.id.title);
         overviewTitle.setText("Recipes");
-        foodList = new ArrayList<>();
-        adapter = new FoodAdapter(getApplicationContext(), foodList, "Food");
+        // foodList = new ArrayList<>();
+        // adapter = new FoodAdapter(getApplicationContext(), foodList, "Food");
         ((FoodAdapter) adapter).addClickListener(this);
 
         linearLayoutManager = new LinearLayoutManager(this);
@@ -69,13 +73,25 @@ public class FoodActivity extends AppCompatActivity implements FoodAdapter.ItemC
         mList.setHasFixedSize(true);
         mList.setLayoutManager(linearLayoutManager);
         mList.addItemDecoration(dividerItemDecoration);
+
+        final FoodAdapter adapter = new FoodAdapter();
         mList.setAdapter(adapter);
 
+        foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+        foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
+            @Override
+            public void onChanged(List<Food> foodList) {
+                adapter.setFood(foodList, "Food");
+            }
+        });
+
+        getData();
 
     }
 
     private void getData () {
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.ProgressDialog);
+        final FoodAdapter adapter = new FoodAdapter();
         progressDialog.setMessage("Loading Recipes");
         progressDialog.show();
 
@@ -93,7 +109,7 @@ public class FoodActivity extends AppCompatActivity implements FoodAdapter.ItemC
                         food.setDescription(jsonObject.getString("description"));
                         food.setSubclass(jsonObject.getString("subclass"));
                         food.setEffect(jsonObject.getString("effect"));
-                        foodList.add(food);
+                        foodViewModel.insert(food);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         progressDialog.dismiss();

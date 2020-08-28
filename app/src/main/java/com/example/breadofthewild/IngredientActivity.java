@@ -1,6 +1,9 @@
 package com.example.breadofthewild;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +32,7 @@ import java.util.Map;
 
 public class IngredientActivity extends AppCompatActivity {
 
+    private IngredientViewModel ingredientViewModel;
 //    private String url = "https://botw-cookbook.herokuapp.com/api/ingredient";
     private String url = "http://10.0.2.2:8000/api/ingredient";
 
@@ -49,8 +53,6 @@ public class IngredientActivity extends AppCompatActivity {
         mList = findViewById(R.id.main_list);
         overviewTitle = findViewById(R.id.title);
         overviewTitle.setText("Ingredients");
-        ingredientList = new ArrayList<>();
-        adapter = new IngredientAdapter(getApplicationContext(), ingredientList);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
@@ -58,13 +60,25 @@ public class IngredientActivity extends AppCompatActivity {
         mList.setHasFixedSize(true);
         mList.setLayoutManager(linearLayoutManager);
         mList.addItemDecoration(dividerItemDecoration);
+
+        final IngredientAdapter adapter = new IngredientAdapter();
         mList.setAdapter(adapter);
 
+        ingredientViewModel = ViewModelProviders.of(this).get(IngredientViewModel.class);
+        ingredientViewModel.getAllIngredients().observe(this, new Observer<List<Ingredient>>() {
+            @Override
+            public void onChanged(List<Ingredient> ingredients) {
+                adapter.setIngredient(ingredients);
+            }
+        });
+
+        getData();
     }
 
     private void getData () {
-        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.ProgressDialog);
-        progressDialog.setMessage("Loading Ingredients");
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        final IngredientAdapter adapter = new IngredientAdapter();
+        progressDialog.setMessage("Loading ingredients");
         progressDialog.show();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -78,7 +92,7 @@ public class IngredientActivity extends AppCompatActivity {
                         ingredient.setImage(jsonObject.getString("image"));
                         ingredient.setDescription(jsonObject.getString("description"));
                         ingredient.setSubclass(jsonObject.getString("subclass"));
-                        ingredientList.add(ingredient);
+                        ingredientViewModel.insert(ingredient);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
@@ -102,8 +116,7 @@ public class IngredientActivity extends AppCompatActivity {
                 return headers;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
         jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 1.0f));
-        requestQueue.add(jsonArrayRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
     }
 }

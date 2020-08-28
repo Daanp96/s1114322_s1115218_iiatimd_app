@@ -1,5 +1,6 @@
 package com.example.breadofthewild;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,22 +28,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
-    private Context context;
-    private List<Food> list;
+    private List<Food> list = new ArrayList<>();
     private String type;
     private ItemClickListener mListener;
 
-
-
-    public FoodAdapter(Context context, List<Food> list, String type) {
-        this.context = context;
-        this.list = list;
-        this.type = type;
-    }
+//    public FoodAdapter(List<Food> list) {
+//        this.list = list;
+//    }
 
     public static class FoodViewHolder extends RecyclerView.ViewHolder {
         public TextView viewName;
@@ -51,7 +49,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         public TextView viewSubclass;
         public TextView viewEffect;
         public ImageButton viewButton;
-
 
 
         public FoodViewHolder(@NonNull View itemView) {
@@ -67,10 +64,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     @NonNull
     @Override
-    public FoodAdapter.FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.food_item, parent, false);
-        FoodViewHolder foodViewHolder = new FoodViewHolder(v);
-        return foodViewHolder;
+    public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_item, parent, false);
+        return new FoodViewHolder(v);
     }
 
     public void addClickListener(ItemClickListener listener) {
@@ -78,6 +74,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.FoodViewHolder holder, final int position) {
         final Food food = list.get(position);
@@ -121,6 +118,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     public interface ItemClickListener{
         void onItemClick(int currentID);
+    }
+
+    public void setFood(List<Food> list, String type){
+        this.list = list;
+        this.type = type;
+        notifyDataSetChanged();
     }
 
 }
