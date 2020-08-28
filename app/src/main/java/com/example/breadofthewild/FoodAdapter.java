@@ -74,7 +74,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.FoodViewHolder holder, final int position) {
         final Food food = list.get(position);
@@ -116,15 +115,16 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         return list.size();
     }
 
-    public interface ItemClickListener{
-        void onItemClick(int currentID);
-    }
-
     public void setFood(List<Food> list, String type){
         this.list = list;
         this.type = type;
         notifyDataSetChanged();
     }
+
+    public interface ItemClickListener{
+        void onItemClick(int currentID);
+    }
+
 
 }
 

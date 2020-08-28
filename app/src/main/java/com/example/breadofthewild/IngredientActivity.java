@@ -47,7 +47,6 @@ public class IngredientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getData();
         setContentView(R.layout.activity_list);
 
         mList = findViewById(R.id.main_list);
@@ -76,9 +75,9 @@ public class IngredientActivity extends AppCompatActivity {
     }
 
     private void getData () {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.ProgressDialog);
         final IngredientAdapter adapter = new IngredientAdapter();
-        progressDialog.setMessage("Loading ingredients");
+        progressDialog.setMessage("Loading Ingredients");
         progressDialog.show();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {

@@ -79,8 +79,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void toCookbookActivity() {
-//        Intent cookbookIntent = new Intent(this, CookbookActivity.class);
-//        startActivity(cookbookIntent);
+        Intent cookbookIntent = new Intent(this, CookbookActivity.class);
+        startActivity(cookbookIntent);
 
     }
 

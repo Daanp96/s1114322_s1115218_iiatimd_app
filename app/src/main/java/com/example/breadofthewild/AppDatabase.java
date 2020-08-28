@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-@Database(entities = {Food.class, Ingredient.class}, version=3)
+@Database(entities = {Food.class, Ingredient.class}, version=7)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

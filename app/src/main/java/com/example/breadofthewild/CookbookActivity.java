@@ -57,7 +57,6 @@ public class CookbookActivity extends AppCompatActivity implements FoodAdapter.I
         mList = findViewById(R.id.main_list);
         overviewTitle = findViewById(R.id.title);
         overviewTitle.setText("My Cookbook");
-        ((FoodAdapter) adapter).addClickListener(this);
 
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -78,10 +77,13 @@ public class CookbookActivity extends AppCompatActivity implements FoodAdapter.I
                 adapter.setFood(foodList, "Cookbook");
             }
         });
+        ((FoodAdapter) adapter).addClickListener(this);
+
     }
 
     private void getData() {
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.ProgressDialog);
+        final FoodAdapter adapter = new FoodAdapter();
         progressDialog.setMessage("Loading Cookbook");
         progressDialog.show();
 
@@ -92,14 +94,15 @@ public class CookbookActivity extends AppCompatActivity implements FoodAdapter.I
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
-                        Food food = new Food();
-                        food.setId(jsonObject.getInt("id"));
-                        food.setName(jsonObject.getString("name"));
-                        food.setImage(jsonObject.getString("image"));
-                        food.setDescription(jsonObject.getString("description"));
-                        food.setSubclass(jsonObject.getString("subclass"));
-                        food.setEffect(jsonObject.getString("effect"));
-                        foodList.add(food);
+
+//                        Food food = new Food();
+//                        food.setId(jsonObject.getInt("id"));
+//                        food.setName(jsonObject.getString("name"));
+//                        food.setImage(jsonObject.getString("image"));
+//                        food.setDescription(jsonObject.getString("description"));
+//                        food.setSubclass(jsonObject.getString("subclass"));
+//                        food.setEffect(jsonObject.getString("effect"));
+//                        foodViewModel.insert(food);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         progressDialog.dismiss();

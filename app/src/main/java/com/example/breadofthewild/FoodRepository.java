@@ -15,7 +15,7 @@ public class FoodRepository {
         AppDatabase database = AppDatabase.getInstance(application);
         foodDAO = database.foodDAO();
         allFood = foodDAO.getAllFood();
-    }
+}
 
     public void insert(Food food){
         new InsertFoodAsyncTask(foodDAO).execute(food);

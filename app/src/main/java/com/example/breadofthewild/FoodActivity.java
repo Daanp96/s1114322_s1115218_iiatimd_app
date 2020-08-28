@@ -63,7 +63,6 @@ public class FoodActivity extends AppCompatActivity implements FoodAdapter.ItemC
         overviewTitle.setText("Recipes");
         // foodList = new ArrayList<>();
         // adapter = new FoodAdapter(getApplicationContext(), foodList, "Food");
-        ((FoodAdapter) adapter).addClickListener(this);
 
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -85,7 +84,10 @@ public class FoodActivity extends AppCompatActivity implements FoodAdapter.ItemC
             }
         });
 
-        getData();
+        ((FoodAdapter) adapter).addClickListener(this);
+
+
+
 
     }
 
