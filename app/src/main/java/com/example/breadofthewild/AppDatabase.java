@@ -1,30 +1,66 @@
 package com.example.breadofthewild;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Database(entities = {Food.class}, version=1)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract FoodDAO foodDAO();
 
     private static AppDatabase instance;
 
-    static synchronized AppDatabase getInstance(Context context){
+    public abstract FoodDAO foodDAO();
+
+    public static synchronized AppDatabase getInstance(Context context){
         if(instance == null){
-            instance = create(context);
+            instance = Room.databaseBuilder(context,
+                    AppDatabase.class, "botw_cookbook")
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
+                    .build();
         }
         return instance;
     }
 
-    private static AppDatabase create(final Context context){
-        return Room.databaseBuilder(context, AppDatabase.class, "Food").fallbackToDestructiveMigration().build();
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db){
+            super.onCreate(db);
+            new PopulateDbAsyncTask(instance).execute();
+        }
+    };
+
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
+        private FoodDAO foodDAO;
+
+        private PopulateDbAsyncTask(AppDatabase db){
+            foodDAO = db.foodDAO();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
     }
 
 }

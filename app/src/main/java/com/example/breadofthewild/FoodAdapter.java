@@ -13,16 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
-    private Context context;
-    private List<Food> list;
+    private List<Food> list = new ArrayList<>();
 
-    public FoodAdapter(Context context, List<Food> list) {
-        this.context = context;
-        this.list = list;
-    }
+//    public FoodAdapter(List<Food> list) {
+//        this.list = list;
+//    }
 
     public static class FoodViewHolder extends RecyclerView.ViewHolder {
         public TextView viewName;
@@ -44,10 +44,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     @NonNull
     @Override
-    public FoodAdapter.FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.food_item, parent, false);
-        FoodViewHolder foodViewHolder = new FoodViewHolder(v);
-        return foodViewHolder;
+    public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_item, parent, false);
+        return new FoodViewHolder(v);
     }
 
     @SuppressLint("SetTextI18n")
@@ -65,6 +64,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setFood(List<Food> list){
+        this.list = list;
+        notifyDataSetChanged();
     }
 
 }

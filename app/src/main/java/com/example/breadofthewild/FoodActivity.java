@@ -1,11 +1,15 @@
 package com.example.breadofthewild;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import com.android.volley.RequestQueue;
@@ -22,15 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FoodActivity extends AppCompatActivity {
+    private FoodViewModel foodViewModel;
 
-    private String url = "https://botw-cookbook.herokuapp.com/api/food";
-
+//    private String url = "https://botw-cookbook.herokuapp.com/api/food";
+    private String url = "http://10.0.2.2:8000/api/food";
+    private Context context;
     private RecyclerView mList;
 
-    private LinearLayoutManager linearLayoutManager;
-    private DividerItemDecoration dividerItemDecoration;
-    private List<Food> foodList;
-    private RecyclerView.Adapter adapter;
+    //    private List<Food> foodList;
+//    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +42,33 @@ public class FoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         mList = findViewById(R.id.main_list);
-        foodList = new ArrayList<>();
-        adapter = new FoodAdapter(getApplicationContext(), foodList);
-        linearLayoutManager = new LinearLayoutManager(this);
+//        foodList = new ArrayList<>();
+//        adapter = new FoodAdapter(foodList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
         mList.setHasFixedSize(true);
         mList.setLayoutManager(linearLayoutManager);
         mList.addItemDecoration(dividerItemDecoration);
+
+        final FoodAdapter adapter = new FoodAdapter();
         mList.setAdapter(adapter);
 
+        foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+        foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
+            @Override
+            public void onChanged(List<Food> foodList) {
+                adapter.setFood(foodList);
+            }
+        });
+
         getData();
+
     }
 
     private void getData () {
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        final AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        final FoodAdapter adapter = new FoodAdapter();
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
@@ -69,7 +84,7 @@ public class FoodActivity extends AppCompatActivity {
                         food.setDescription(jsonObject.getString("description"));
                         food.setSubclass(jsonObject.getString("subclass"));
                         food.setEffect(jsonObject.getString("effect"));
-                        foodList.add(food);
+                        foodViewModel.insert(food);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
@@ -86,7 +101,7 @@ public class FoodActivity extends AppCompatActivity {
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+
     }
 }
